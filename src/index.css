@@ -1,0 +1,82 @@
+:root {
+  --sun-deep: #e08a3a;
+  --sun-coral: #f0a35a;
+  --sun-peach: #ffc878;
+  --sun-apricot: #ffe09a;
+  --sun-cream: #fff8e8;
+  --dusk-rose: #ffd28a;
+  --dusk-lilac: #ffe6b0;
+  --dusk-sky: #fff3c4;
+  --leaf: #8faf72;
+  --ink: #4a3a28;
+  --ink-soft: #6e5a42;
+  --ink-faint: #a08a6e;
+  --glass: rgba(255, 251, 240, 0.78);
+  --glass-strong: rgba(255, 253, 246, 0.92);
+  --line: rgba(74, 58, 40, 0.1);
+  --shadow: 0 12px 40px rgba(224, 138, 58, 0.14);
+  --radius: 18px;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+
+  font-family: var(--font-body);
+  color: var(--ink);
+  line-height: 1.45;
+  font-weight: 500;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(ellipse 120% 80% at 8% -8%, #ffe9b8 0%, transparent 55%),
+    radial-gradient(ellipse 90% 70% at 100% 5%, #ffd4a0 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, #ffe0a8 0%, transparent 55%),
+    linear-gradient(165deg, #fff9eb 0%, #ffeec8 40%, #ffd9a0 75%, #ffc98a 100%);
+  background-attachment: fixed;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
