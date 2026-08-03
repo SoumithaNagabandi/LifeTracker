@@ -9,7 +9,6 @@ interface TaskRowProps {
   onAddSub: (title: string) => void;
   onDelete: () => void;
   onDeleteSub: (subId: string) => void;
-  onSetTime: (time?: string) => void;
   showAddSub: boolean;
   onRequestAddSub: () => void;
   onCancelAddSub: () => void;
@@ -22,7 +21,6 @@ export function TaskRow({
   onAddSub,
   onDelete,
   onDeleteSub,
-  onSetTime,
   showAddSub,
   onRequestAddSub,
   onCancelAddSub,
@@ -41,40 +39,27 @@ export function TaskRow({
         {task.category && (
           <span className={`cat-pill cat-${task.category}`}>{task.category}</span>
         )}
-        <label className="time-field" title="Reminder 10 min before" onClick={(e) => e.stopPropagation()}>
-          <span className="time-icon" aria-hidden>
-            ⏰
-          </span>
-          <input
-            type="time"
-            value={task.scheduledTime ?? ''}
-            onChange={(e) => onSetTime(e.target.value || undefined)}
-            aria-label={`Time for ${task.title}`}
-          />
-        </label>
-        <button
-          type="button"
-          className="icon-btn"
-          title="Add subtask"
-          aria-label="Add subtask"
-          onClick={onRequestAddSub}
-        >
-          <PlusIcon />
-        </button>
-        <button
-          type="button"
-          className="icon-btn danger"
-          title="Delete task"
-          aria-label="Delete task"
-          onClick={onDelete}
-        >
-          <TrashIcon />
-        </button>
+        <div className="task-actions">
+          <button
+            type="button"
+            className="icon-btn"
+            title="Add subtask"
+            aria-label="Add subtask"
+            onClick={onRequestAddSub}
+          >
+            <PlusIcon />
+          </button>
+          <button
+            type="button"
+            className="icon-btn danger"
+            title="Delete task"
+            aria-label="Delete task"
+            onClick={onDelete}
+          >
+            <TrashIcon />
+          </button>
+        </div>
       </div>
-
-      {task.scheduledTime && (
-        <p className="time-hint">Notify 10 min before {task.scheduledTime}</p>
-      )}
 
       {subs.length > 0 && (
         <ul className="subtask-list">

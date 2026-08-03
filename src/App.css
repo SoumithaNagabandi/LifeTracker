@@ -141,10 +141,6 @@
   flex-wrap: wrap;
 }
 
-.notify-btn {
-  white-space: nowrap;
-}
-
 .header-streak {
   display: flex;
   align-items: center;
@@ -155,140 +151,6 @@
   border-radius: 999px;
   backdrop-filter: blur(10px);
   box-shadow: var(--shadow);
-}
-
-/* Notifications */
-.notify-center {
-  margin-bottom: 1rem;
-}
-
-.notify-banner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.85rem 1rem;
-  margin-bottom: 0.75rem;
-  background: var(--glass-strong);
-  border: 1px solid rgba(240, 163, 90, 0.35);
-  border-radius: var(--radius);
-  backdrop-filter: blur(10px);
-}
-
-.notify-banner.muted {
-  opacity: 0.85;
-}
-
-.notify-banner strong {
-  font-family: var(--font-display);
-  display: block;
-  margin-bottom: 0.15rem;
-}
-
-.notify-banner p {
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-  max-width: 36rem;
-}
-
-.toast-stack {
-  position: fixed;
-  top: 0.85rem;
-  right: 0.85rem;
-  z-index: 40;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  max-width: min(360px, calc(100vw - 1.5rem));
-  pointer-events: none;
-}
-
-.toast {
-  pointer-events: auto;
-  display: flex;
-  gap: 0.5rem;
-  align-items: flex-start;
-  padding: 0.75rem 0.85rem;
-  border-radius: 14px;
-  background: var(--glass-strong);
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-  animation: toast-in 0.35s ease-out;
-  backdrop-filter: blur(12px);
-}
-
-.toast strong {
-  font-family: var(--font-display);
-  display: block;
-  margin-bottom: 0.15rem;
-}
-
-.toast p {
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-}
-
-.toast-hobby {
-  border-color: rgba(240, 163, 90, 0.45);
-}
-.toast-sleep {
-  border-color: rgba(125, 155, 118, 0.5);
-  background: linear-gradient(120deg, rgba(255, 236, 200, 0.95), var(--glass-strong));
-}
-.toast-task {
-  border-color: rgba(244, 162, 97, 0.45);
-}
-
-@keyframes toast-in {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.time-field {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 0.15rem 0.4rem 0.15rem 0.35rem;
-  flex-shrink: 0;
-}
-
-.time-field input[type='time'] {
-  border: none;
-  background: transparent;
-  padding: 0.1rem 0;
-  min-width: 0;
-  width: 6.5rem;
-  font-size: 0.78rem;
-  color: var(--ink-soft);
-}
-
-.time-icon {
-  font-size: 0.75rem;
-  line-height: 1;
-}
-
-.time-hint {
-  margin: 0.2rem 0 0 1.75rem;
-  font-size: 0.75rem;
-  color: var(--ink-faint);
-}
-
-.alarm-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
 }
 
 .inline-field.stacked {
@@ -581,11 +443,13 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .task-title {
   flex: 1;
   min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .cat-pill {
@@ -596,6 +460,13 @@
   border-radius: 999px;
   background: rgba(244, 162, 97, 0.25);
   color: var(--ink-soft);
+  flex-shrink: 0;
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
   flex-shrink: 0;
 }
 
@@ -655,6 +526,12 @@
   gap: 0.45rem;
   font-size: 0.92rem;
   color: var(--ink-soft);
+}
+
+.subtask > span {
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: anywhere;
 }
 
 .subtask.done span {
@@ -1507,14 +1384,6 @@
     justify-content: center;
   }
 
-  .toast-stack {
-    top: auto;
-    bottom: 4.5rem;
-    right: 0.75rem;
-    left: 0.75rem;
-    max-width: none;
-  }
-
   .tab-bar {
     position: fixed;
     left: 0.5rem;
@@ -1540,6 +1409,176 @@
 
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .month-nav {
+    margin: 0.2rem 0 0.8rem;
+  }
+
+  .month-nav .btn {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    padding: 0;
+  }
+
+  .day-header {
+    gap: 0.35rem;
+    padding: 0.7rem;
+  }
+
+  .day-label strong {
+    font-size: 0.92rem;
+  }
+
+  .day-progress {
+    margin-left: auto;
+    margin-right: 0.1rem;
+    font-size: 0.78rem;
+  }
+
+  .day-body {
+    padding: 0 0.7rem 0.7rem;
+  }
+
+  .task-row {
+    padding: 0.7rem 0;
+  }
+
+  .task-main {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: 0.5rem;
+    row-gap: 0.35rem;
+  }
+
+  .task-main > .check {
+    grid-row: 1 / span 2;
+    margin-top: 0.1rem;
+  }
+
+  .task-title {
+    grid-column: 2;
+    font-size: 0.92rem;
+    line-height: 1.3;
+  }
+
+  .cat-pill {
+    grid-column: 2;
+    justify-self: start;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .task-actions {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    gap: 0.15rem;
+  }
+
+  .task-actions .icon-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .subtask-list {
+    margin-left: 1.8rem;
+  }
+
+  .subtask {
+    align-items: flex-start;
+    font-size: 0.86rem;
+  }
+
+  .subtask .check {
+    margin-top: 0.12rem;
+  }
+
+  .subtask .icon-btn {
+    margin-top: -0.2rem;
+  }
+
+  .add-inline,
+  .sub-composer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  .add-inline input,
+  .sub-composer input {
+    min-width: 0;
+  }
+
+  .add-inline .btn.ghost {
+    grid-column: 1 / -1;
+    justify-self: start;
+    padding-left: 0.25rem;
+  }
+
+  .panel-hero {
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .panel-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    font-size: 1.6rem;
+  }
+
+  .composer,
+  .template-list,
+  .summary-section,
+  .sleep-composer,
+  .diet-card {
+    padding: 0.85rem;
+    border-radius: 15px;
+  }
+
+  .sync-pills {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sync-pill {
+    padding: 0.5rem;
+    font-size: 0.77rem;
+  }
+
+  .template-actions .btn {
+    font-size: 0.78rem;
+    padding: 0.45rem 0.6rem;
+  }
+
+  .streak-hero {
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .streak-ring {
+    width: 118px;
+    height: 118px;
+  }
+
+  .streak-ring-inner {
+    width: 92px;
+    height: 92px;
+  }
+
+  .streak-stats {
+    justify-content: space-around;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .stat {
+    min-width: 76px;
+    text-align: center;
   }
 
   .diet-form-grid,

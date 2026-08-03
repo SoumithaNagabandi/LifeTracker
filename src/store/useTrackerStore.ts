@@ -5,7 +5,6 @@ import type {
   DayEntry,
   DietProfile,
   MealLog,
-  SleepAlarms,
   SleepLog,
   Subtask,
   SyncMode,
@@ -16,18 +15,11 @@ import { getMonthDays, parseDateKey, toDateKey, toMonthKey, uid } from '../utils
 
 const STORAGE_KEY = 'bloom-tracker-v1';
 
-const DEFAULT_SLEEP_ALARMS: SleepAlarms = {
-  bedtime: '22:30',
-  wakeupTime: '06:30',
-  enabled: false,
-};
-
 function emptyState(): AppState {
   return {
     days: {},
     templates: [],
     sleepLogs: [],
-    sleepAlarms: { ...DEFAULT_SLEEP_ALARMS },
     dietProfile: {},
     mealLogs: [],
     currentMonth: toMonthKey(new Date()),
@@ -64,10 +56,6 @@ function loadState(): AppState {
         subtasks: Array.isArray(t.subtasks) ? t.subtasks : [],
       })),
       sleepLogs: Array.isArray(parsed.sleepLogs) ? parsed.sleepLogs : [],
-      sleepAlarms: {
-        ...DEFAULT_SLEEP_ALARMS,
-        ...(parsed.sleepAlarms ?? {}),
-      },
       dietProfile: parsed.dietProfile ?? {},
       mealLogs: Array.isArray(parsed.mealLogs) ? parsed.mealLogs : [],
       currentMonth: parsed.currentMonth || base.currentMonth,
@@ -275,23 +263,6 @@ export function useTrackerStore() {
     });
   }, []);
 
-  const setTaskTime = useCallback((date: string, taskId: string, scheduledTime?: string) => {
-    setState((s) => {
-      const days = { ...s.days };
-      const day = days[date];
-      if (!day) return s;
-      days[date] = {
-        ...day,
-        tasks: day.tasks.map((t) =>
-          t.id === taskId
-            ? { ...t, scheduledTime: scheduledTime || undefined }
-            : t
-        ),
-      };
-      return { ...s, days };
-    });
-  }, []);
-
   const applyTemplateToMonth = useCallback(
     (template: TemplateTask, monthKey?: string) => {
       setState((s) => {
@@ -416,13 +387,6 @@ export function useTrackerStore() {
     [addTaskToDay]
   );
 
-  const updateSleepAlarms = useCallback((patch: Partial<SleepAlarms>) => {
-    setState((s) => ({
-      ...s,
-      sleepAlarms: { ...s.sleepAlarms, ...patch },
-    }));
-  }, []);
-
   const updateDietProfile = useCallback((patch: Partial<DietProfile>) => {
     setState((s) => ({
       ...s,
@@ -461,14 +425,12 @@ export function useTrackerStore() {
     deleteTask,
     deleteSubtask,
     renameTask,
-    setTaskTime,
     addTemplate,
     updateTemplate,
     updateTemplateSync,
     deleteTemplate,
     applyTemplateToMonth,
     addSleepLog,
-    updateSleepAlarms,
     updateDietProfile,
     addMealLog,
     deleteMealLog,

@@ -13,7 +13,6 @@ interface DayRowProps {
   onToggleSub: (taskId: string, subId: string) => void;
   onDeleteTask: (taskId: string) => void;
   onDeleteSub: (taskId: string, subId: string) => void;
-  onSetTaskTime: (taskId: string, time?: string) => void;
 }
 
 export function DayRow({
@@ -25,7 +24,6 @@ export function DayRow({
   onToggleSub,
   onDeleteTask,
   onDeleteSub,
-  onSetTaskTime,
 }: DayRowProps) {
   const [open, setOpen] = useState(isToday(date));
   const [adding, setAdding] = useState(false);
@@ -93,7 +91,6 @@ export function DayRow({
               onAddSub={(title) => onAddSub(task.id, title)}
               onDelete={() => onDeleteTask(task.id)}
               onDeleteSub={(subId) => onDeleteSub(task.id, subId)}
-              onSetTime={(time) => onSetTaskTime(task.id, time)}
               showAddSub={addingSubFor === task.id}
               onRequestAddSub={() => setAddingSubFor(task.id)}
               onCancelAddSub={() => setAddingSubFor(null)}

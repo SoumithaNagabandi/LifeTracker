@@ -21,8 +21,6 @@ export interface Task {
   subtasks: Subtask[];
   category?: CategoryId;
   templateId?: string;
-  /** Local time HH:mm — reminder fires 10 minutes before */
-  scheduledTime?: string;
 }
 
 export interface DayEntry {
@@ -40,7 +38,7 @@ export interface TemplateTask {
   subtasks: string[];
   notes?: string;
   targetHours?: number;
-  /** Hobby event date YYYY-MM-DD — reminders at 7 days and 2 days before */
+  /** Optional hobby event date YYYY-MM-DD */
   eventDate?: string;
 }
 
@@ -50,12 +48,6 @@ export interface SleepLog {
   hours: number;
   quality: 1 | 2 | 3 | 4 | 5;
   notes: string;
-}
-
-export interface SleepAlarms {
-  bedtime: string; // HH:mm
-  wakeupTime: string; // HH:mm
-  enabled: boolean;
 }
 
 export interface DietProfile {
@@ -103,7 +95,6 @@ export interface AppState {
   days: Record<string, DayEntry>;
   templates: TemplateTask[];
   sleepLogs: SleepLog[];
-  sleepAlarms: SleepAlarms;
   dietProfile: DietProfile;
   mealLogs: MealLog[];
   currentMonth: string; // YYYY-MM
@@ -111,4 +102,3 @@ export interface AppState {
 
 export type TabId = 'main' | CategoryId | 'summary';
 
-export type NotificationPermissionState = NotificationPermission | 'unsupported';

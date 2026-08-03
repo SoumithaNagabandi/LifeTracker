@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import type { CategoryId, TabId } from './types';
 import { useTrackerStore } from './store/useTrackerStore';
-import { useNotificationScheduler } from './hooks/useNotificationScheduler';
 import { computeStreak } from './utils/streak';
 import { FlowerDecor } from './components/FlowerDecor';
 import { MainTracker } from './components/MainTracker';
 import { CategoryPanel } from './components/CategoryPanel';
 import { DietTracker } from './components/DietTracker';
 import { SummaryReport } from './components/SummaryReport';
-import { NotifyCenter } from './components/NotifyCenter';
 import './App.css';
 
 const TABS: { id: TabId; label: string; short: string }[] = [
@@ -39,8 +37,6 @@ export default function App() {
   const store = useTrackerStore();
   const [tab, setTab] = useState<TabId>('main');
   const streak = computeStreak(store.state.days, store.state.currentMonth);
-  const { permission, enableNotifications, toasts, dismissToast } =
-    useNotificationScheduler(store.state);
 
   return (
     <div className="app-shell">
@@ -53,16 +49,11 @@ export default function App() {
             ✿
           </span>
           <div>
-            <h1>Bloom Tracker</h1>
+            <h1>Life Tracker</h1>
             <p className="tagline">Soft days · gentle streaks · daisy light</p>
           </div>
         </div>
         <div className="header-actions">
-          {permission !== 'granted' && permission !== 'unsupported' && (
-            <button type="button" className="btn soft notify-btn" onClick={() => void enableNotifications()}>
-              🔔 Reminders
-            </button>
-          )}
           <div className="header-streak" title="Completed days / tracked days this month">
             <span className="streak-flame">✦</span>
             <div>
@@ -76,13 +67,6 @@ export default function App() {
           </div>
         </div>
       </header>
-
-      <NotifyCenter
-        permission={permission}
-        onEnable={() => void enableNotifications()}
-        toasts={toasts}
-        onDismiss={dismissToast}
-      />
 
       <nav className="tab-bar" aria-label="Sections">
         {TABS.map((t) => (
@@ -106,7 +90,7 @@ export default function App() {
       </main>
 
       <footer className="app-footer">
-        <span>Reminders work best while this tab stays open · data stays on this device</span>
+        <span>Your planner data stays on this device</span>
       </footer>
     </div>
   );

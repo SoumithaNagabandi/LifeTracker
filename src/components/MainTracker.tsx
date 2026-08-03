@@ -47,7 +47,6 @@ export function MainTracker({ store }: MainTrackerProps) {
             onToggleSub={(taskId, subId) => store.toggleSubtask(date, taskId, subId)}
             onDeleteTask={(taskId) => store.deleteTask(date, taskId)}
             onDeleteSub={(taskId, subId) => store.deleteSubtask(date, taskId, subId)}
-            onSetTaskTime={(taskId, time) => store.setTaskTime(date, taskId, time)}
           />
         ))}
       </div>

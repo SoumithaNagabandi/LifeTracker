@@ -37,8 +37,6 @@ export function CategoryPanel({ category, store }: CategoryPanelProps) {
   const [sleepQuality, setSleepQuality] = useState<1 | 2 | 3 | 4 | 5>(4);
   const [sleepNotes, setSleepNotes] = useState('');
 
-  const alarms = store.state.sleepAlarms;
-
   useEffect(() => {
     setSyncMode(defaultSync(category));
     setTitle('');
@@ -82,43 +80,6 @@ export function CategoryPanel({ category, store }: CategoryPanelProps) {
       </header>
 
       {category === 'sleep' && (
-        <>
-          <section className="composer sleep-composer">
-            <h3>Sleep & wake alarms</h3>
-            <p className="sync-hint">
-              Alarms fire at the set times (keep the app open). A soft tone plays with the bedtime /
-              wake-up alert.
-            </p>
-            <label className="alarm-toggle">
-              <input
-                type="checkbox"
-                checked={alarms.enabled}
-                onChange={(e) => store.updateSleepAlarms({ enabled: e.target.checked })}
-              />
-              <span>Enable sleep alarms</span>
-            </label>
-            <div className="form-grid">
-              <label>
-                Bedtime
-                <input
-                  type="time"
-                  value={alarms.bedtime}
-                  onChange={(e) => store.updateSleepAlarms({ bedtime: e.target.value })}
-                  disabled={!alarms.enabled}
-                />
-              </label>
-              <label>
-                Wake-up
-                <input
-                  type="time"
-                  value={alarms.wakeupTime}
-                  onChange={(e) => store.updateSleepAlarms({ wakeupTime: e.target.value })}
-                  disabled={!alarms.enabled}
-                />
-              </label>
-            </div>
-          </section>
-
           <section className="composer sleep-composer">
             <h3>Log last night’s sleep</h3>
             <div className="form-grid">
@@ -170,7 +131,6 @@ export function CategoryPanel({ category, store }: CategoryPanelProps) {
               </ul>
             )}
           </section>
-        </>
       )}
 
       <section className="composer">
@@ -190,7 +150,7 @@ export function CategoryPanel({ category, store }: CategoryPanelProps) {
               value={eventDate}
               onChange={(e) => setEventDate(e.target.value)}
             />
-            <span className="field-hint">Reminders: 1 week before and 2 days before</span>
+            <span className="field-hint">Keep the date with your hobby plan.</span>
           </label>
         )}
 
@@ -297,7 +257,7 @@ export function CategoryPanel({ category, store }: CategoryPanelProps) {
             </div>
             {t.eventDate && (
               <p className="template-meta">
-                Event {t.eventDate} · reminds 7d & 2d before
+                Event {t.eventDate}
               </p>
             )}
             {category === 'hobbies' && (
